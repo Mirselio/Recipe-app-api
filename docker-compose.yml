@@ -1,0 +1,15 @@
+version: '3.9'  # указываем версию Docker Compose
+
+services:
+  app:  # имя сервиса
+    build:
+      context: .  # указывает на текущую директорию (контекст сборки)
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000"  # проброс портов (внешний:внутренний)
+    volumes:
+      - ./app:/app  # монтируем локальную папку ./app в контейнер
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000" 
+    # команда для запуска Django-приложения
