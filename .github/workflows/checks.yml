@@ -15,6 +15,6 @@ jobs:
       - name: Checkout  # Проверяем код из репозитория
         uses: actions/checkout@v2  # Используем версию v2 для checkout
       - name: Test  # Запускаем тесты внутри контейнера
-        run: docker compose run --rm app sh -c "python manage.py test"  # Выполняем команду тестирования в контейнере
+        run: docker-compose run --rm app sh -c "python manage.py test"  # Выполняем команду тестирования в контейнере
       - name: Lint  # Проверяем код на стиль с помощью flake8
-        run: docker compose run --rm app sh -c "flake8"  # Выполняем линтинг кода в контейнере
+        run: docker-compose run --rm app sh -c "flake8"  # Выполняем линтинг кода в контейнере
