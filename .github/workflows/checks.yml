@@ -6,15 +6,19 @@ jobs:
   test-lint:
     name: Test and Lint  # Название задания
     runs-on: ubuntu-20.04  # Указание, на какой системе будет выполняться job
+
     steps:
       - name: Login to Docker Hub  # Логинимся в Docker Hub
         uses: docker/login-action@v1  # Используем версию v1 для login-action
         with:
           username: ${{ secrets.DOCKERHUB_USER }}  # Получаем имя пользователя из секретов
           password: ${{ secrets.DOCKERHUB_TOKEN }}  # Получаем токен из секретов
+
       - name: Checkout  # Проверяем код из репозитория
         uses: actions/checkout@v2  # Используем версию v2 для checkout
+
       - name: Test  # Запускаем тесты внутри контейнера
-        run: docker-compose run --rm app sh -c "python manage.py test"  # Выполняем команду тестирования в контейнере
+        run: docker compose run --rm app sh -c "python manage.py test"  # Выполняем команду тестирования в контейнере
+
       - name: Lint  # Проверяем код на стиль с помощью flake8
-        run: docker-compose run --rm app sh -c "flake8"  # Выполняем линтинг кода в контейнере
+        run: docker compose run --rm app sh -c "flake8"  # Выполняем линтинг кода в контейнере
